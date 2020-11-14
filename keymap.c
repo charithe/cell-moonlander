@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_EQUAL,                                       KC_MINUS,       KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NONUS_BSLASH,
     LCTL(KC_LSHIFT),KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_QUOTE,                                                                       KC_DELETE,      KC_H,           KC_J,           KC_K,           KC_L,           LT(2,KC_SCOLON),KC_ENTER,       
     KC_LSPO,        LCTL_T(KC_Z),   KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         RCTL_T(KC_SLASH),KC_RSPC,        
-    LCA_T(KC_GRAVE),WEBUSB_PAIR,    KC_LALT,        KC_LEFT,        KC_RIGHT,       KC_ESCAPE,                                                                                                       VIM_COMMAND_MODE,KC_UP,          KC_DOWN,        KC_LBRACKET,    KC_RBRACKET,    KC_LEAD,          
+    LCA_T(KC_GRAVE),WEBUSB_PAIR,    KC_LALT,        KC_LEFT,        KC_RIGHT,       KC_ESC,                                                                                                       VIM_COMMAND_MODE,KC_UP,          KC_DOWN,        KC_LBRACKET,    KC_RBRACKET,    KC_LEAD,          
     KC_SPACE,       KC_BSPACE,      KC_LGUI,                        MO(1),          KC_TAB,         KC_SPACE
   ),
   [1] = LAYOUT_moonlander(
@@ -120,7 +120,6 @@ LEADER_EXTERNS();
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
-    leader_end();
 
     // Vim write and quit
     SEQ_ONE_KEY(KC_W) {
@@ -136,5 +135,32 @@ void matrix_scan_user(void) {
     SEQ_ONE_KEY(KC_MINUS) {
       SEND_STRING(SS_LCTL(SS_LSFT("u")) "2014\n");
     }
+
+    // Assign
+    SEQ_ONE_KEY(KC_EQUAL) {
+        SEND_STRING(":= ");
+    }
+
+    // Not Equal
+    SEQ_ONE_KEY(KC_1) {
+        SEND_STRING("!= ");
+    }
+
+    // Less than or equal
+    SEQ_ONE_KEY(KC_COMMA) {
+        SEND_STRING("<= ");
+    }
+
+    // Greater than or equal
+    SEQ_ONE_KEY(KC_DOT) {
+        SEND_STRING(">= ");
+    }
+
+    // Go if err
+    SEQ_TWO_KEYS(KC_I, KC_F) {
+        SEND_STRING("if err := ; err != nil {\n\n}");
+    }
+
+    leader_end();
   }
 }

@@ -5,7 +5,7 @@ This is a custom [Moonlander Mark 1](https://www.zsa.io/moonlander/) keyboard la
 - Enable the UK keymap.
 - Enable leader key
 - Create a macro to drop into Vim command mode by clicking a thumb cluster button.
-- Leader key combo for em-dash and Vim wq 
+- Leader key combos for em-dash, assign, unequal, gte, lte 
 
 ## Dev Setup
 
